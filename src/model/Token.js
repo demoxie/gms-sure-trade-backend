@@ -1,9 +1,8 @@
-import {DataTypes} from "sequelize";
-import User from "./User.js";
+import {DataTypes, Model} from "sequelize";
+import sequelize from "../config/db/db.js";
 
 class Token extends Model {}
-    Token.define(
-        "Token",
+    Token.init(
         {
             id: {
                 type: DataTypes.INTEGER,
@@ -18,26 +17,29 @@ class Token extends Model {}
             createdAt: {
                 type: DataTypes.DATE,
                 allowNull: false,
-                default: new Date(),
+                default: DataTypes.NOW,
             },
             updatedAt: {
                 type: DataTypes.DATE,
                 allowNull: true,
             },
-        }
+        }, {sequelize, modelName: "Token"}
     );
-Token.belongsTo(
-    User,
-    {
-        foreignKey: {
-            name: "id",
-            allowNull: true,
-        },
-        onDelete: "CASCADE",
-        onUpdate: "CASCADE",
-    })
-Token.sync({
-    alter: true,
-}).then(r => console.log('Token table is created'));
+    Token.associate = function (models) {
+        Token.belongsTo(models.User, {
+            foreignKey: {
+                name: "id",
+                allowNull: true,
+            },
+            onDelete: "CASCADE",
+            onUpdate: "CASCADE",
+        });
+    };
+
+// Token.sync({alter: true})
+//     .then(r => console.log('Token table is created'))
+//     .catch(e => console.log('Token table is not created'));
+
+
 
 export default Token;
