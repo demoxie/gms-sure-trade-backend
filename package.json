@@ -37,7 +37,7 @@
     "puppeteer": "^19.8.3",
     "rabbitmq": "^0.0.2",
     "redis": "^4.6.5",
-    "sequelize": "^6.30.0",
+    "sequelize": "^6.37.7",
     "swagger-express-router": "^1.0.0",
     "swagger-jsdoc": "^6.0.0",
     "swagger-ui-express": "^4.6.2",
